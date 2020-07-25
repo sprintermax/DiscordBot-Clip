@@ -1,0 +1,19 @@
+{
+	"botsettings": {
+		"token": "Njk1NzA2NzA3MzUxMDQ0MTQ2.XoeFgg.7_RLiF2Avti1wwpw0Fbbb0h3-cs",
+		"database": "mongodb+srv://DiscordClip:Database@clipprimarycluster-tcemn.gcp.mongodb.net",
+		"prefix": "!!"
+	},
+	"whitelistids": [
+		"647862516545749043",
+		"307331927772364801"
+	],
+	"ftnconfig": {
+		"fortnite_api_com_apikey": "3498d03455d967af4026c6d80921ad5d530d1108",
+		"ftnbasicapiuser": "bobao@bobao.com",
+		"ftnbasicapitoken": "Boberto13579Hello",
+		"fortnitetracker_com_apikey": "647212b4-e22e-427f-84c6-e40e5daeb24d",
+		"fortniteapi_oi_apikey": "2f79750c-52c20896-f369cbd3-3762f93a",
+		"language": "pt-BR"
+	}
+}
