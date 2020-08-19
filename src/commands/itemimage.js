@@ -49,7 +49,7 @@ exports.run = async (client, message, args, database) => {
 		language: client.userconfig.ftnconfig.language,
 		matchMethod: "contains",
 		searchLanguage: searchLanguage,
-		name: cosmetic
+		name: encodeURI(cosmetic)
 	};
 	var Fortnite = new FortniteAPI(config);
 	if (args[0] == "-id") {
