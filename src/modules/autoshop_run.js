@@ -192,12 +192,12 @@ module.exports = async (client, shop) => {
 								fs.readdir("./src/temp/store/final/", (err, files) => {
 									if (err) return console.log(err);
 									var filedata = [];
-									if (files.length == mergey) {
+									/*if (files.length == mergey) {*/
 										files.forEach(file => {
 											filedata.push(`./src/temp/store/final/${file}`);
 										});
 										Merger2(filedata);
-									}
+									/*}*/
 								});
 							}, 3000);
 						});

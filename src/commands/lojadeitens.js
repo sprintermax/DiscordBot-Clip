@@ -217,16 +217,16 @@ exports.run = async (client, message, args, database) => {
 									fs.readdir("./src/temp/store/final/", (err, files) => {
 										if (err) return console.log(err);
 										var filedata = [];
-										if (files.length == mergey) {
+										/*if (files.length == mergey) {*/
 											files.forEach(file => {
 												filedata.push(`./src/temp/store/final/${file}`);
 											});
 											Merger2(filedata);
-										} else {
+										/*} else {
 											message.tempmsg.edit(`Oops! Ocorreu um problema inesperado, tente novamente.`).then(msg => {
 												msg.delete(10000)
 											});
-										}
+										}*/
 									});
 								}, 3000);
 							});
