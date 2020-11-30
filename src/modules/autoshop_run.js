@@ -199,9 +199,9 @@ module.exports = async (client, shop) => {
 										Merger2(filedata);
 									}
 								});
-							}, 5000);
+							}, 3000);
 						});
-					}, 3000);
+					}, 2000);
 				}
 			});
 		});
@@ -253,7 +253,7 @@ module.exports = async (client, shop) => {
                                 });
                                 CleanUpFiles();
                             });
-						}, 3000);
+						}, 1500);
 					});
 				});
 			  }).catch(err =>{

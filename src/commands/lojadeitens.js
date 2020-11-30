@@ -228,9 +228,9 @@ exports.run = async (client, message, args, database) => {
 											});
 										}
 									});
-								}, 5000);
+								}, 3000);
 							});
-						}, 3000);
+						}, 2000);
 					}
 				});
 			});
@@ -282,7 +282,7 @@ exports.run = async (client, message, args, database) => {
 									  message.channel.send(`${message.author} Você não tem permissão para mandar mensagens no Chat mencionado!`).then(msg => msg.delete(10000));
 									}
 								}
-							}, 3000);
+							}, 1500);
 						});
 					});
 				  }).catch(err =>{
