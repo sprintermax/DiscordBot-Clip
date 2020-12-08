@@ -100,6 +100,8 @@ exports.run = async (client, message, args, database) => {
 			background = await Jimp.read('./src/data/images/series/DCUSeries.png');
 		} else if (itemdata.series && itemdata.series.backendValue == "ColumbusSeries") {
 			background = await Jimp.read('./src/data/images/series/ColumbusSeries.png');
+		} else if (itemdata.series && itemdata.series.backendValue == "PlatformSeries") {
+			background = await Jimp.read('./src/data/images/series/PlatformSeries.png');
 		} else if (!itemdata.series) {
 			background = await Jimp.read(`./src/data/images/rarities/${itemdata.rarity.backendValue.split("EFortRarity::")[1]}.png`);
 		}
