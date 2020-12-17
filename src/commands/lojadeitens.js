@@ -75,8 +75,6 @@ exports.run = async (client, message, args, database) => {
 					itemimage = await Jimp.read(storeitem.items[0].images.featured);
 				} else if (storeitem.items[0].images.smallIcon) {
 					itemimage = await Jimp.read(storeitem.items[0].images.smallIcon);
-				} else {
-					itemimage = await Jimp.read('./src/data/images/QuestionMark.png');
 				}
 			} else {
 				if (storeitem.items[0].images.featured) {
@@ -85,13 +83,12 @@ exports.run = async (client, message, args, database) => {
 					itemimage = await Jimp.read(storeitem.items[0].images.icon);
 				} else if (storeitem.items[0].images.smallIcon) {
 					itemimage = await Jimp.read(storeitem.items[0].images.smallIcon);
-				} else {
-					itemimage = await Jimp.read('./src/data/images/QuestionMark.png');
 				}
 			}
 			if (storeitem.bundle && storeitem.bundle.image) {
 				itemimage = await Jimp.read(storeitem.bundle.image);
 			}
+			if (!itemimage) itemimage = await Jimp.read('./src/data/images/QuestionMark.png');
 			var hasseries = storeitem.items[0].series ? true : false;
 			var itemimg = await Jimp.read('./src/data/images/rarities/Common.png');
 			if (hasseries && storeitem.items[0].series.backendValue == "MarvelSeries") {
@@ -177,7 +174,7 @@ exports.run = async (client, message, args, database) => {
 					itemimg.blit(vbucks, (128 - (vbuckswidth/2)), 220);
 					return itemimg;
 				}).then(itemimg => {
-					itemimg.write(`./src/temp/store/items/${storeitem.bundle ? "Bundle" : "NotBundle"}_${storeitem.items[0].series ? storeitem.items[0].series.backendValue : "ZSeries"}_${(storeitem.items[0].rarity.backendValue.split("EFortRarity::")[1] == "Legendary") ? "ALegendary" : (storeitem.items[0].rarity.backendValue.split("EFortRarity::")[1] == "Common") ? "ZCommon" : storeitem.items[0].rarity.backendValue.split("EFortRarity::")[1]}_${storeitem.items[0].id}.png`);
+					itemimg.write(`./src/temp/store/items/${storeitem.bundle ? "Bundle" : "NotBundle"}_${storeitem.items[0].series ? storeitem.items[0].series.backendValue : "ZSeries"}_${(storeitem.items[0].rarity.backendValue.split("EFortRarity::")[1] == "Legendary") ? "ALegendary" : (storeitem.items[0].rarity.backendValue.split("EFortRarity::")[1] == "Common") ? "ZCommon" : storeitem.items[0].rarity.backendValue.split("EFortRarity::")[1]}_${storeitem.items[0].id}_${storeitem.offerId.split(":/")[1]}.png`);
 					finishedtasks += 1;
 					if (finishedtasks == (storelength - skippeditems)) {
 						var checkedfiles = 0;
@@ -236,7 +233,7 @@ exports.run = async (client, message, args, database) => {
 									});
 								}, 3000);
 							});
-						}, 2000);
+						}, 5000);
 					}
 				});
 			});
