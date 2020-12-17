@@ -51,6 +51,8 @@ module.exports = async (client, shop) => {
 				itemimage = await Jimp.read(storeitem.items[0].images.featured);
 			} else if (storeitem.items[0].images.smallIcon) {
 				itemimage = await Jimp.read(storeitem.items[0].images.smallIcon);
+			} else {
+				itemimage = await Jimp.read('./src/data/images/QuestionMark.png');
 			}
 		} else {
 			if (storeitem.items[0].images.featured) {
@@ -59,9 +61,11 @@ module.exports = async (client, shop) => {
 				itemimage = await Jimp.read(storeitem.items[0].images.icon);
 			} else if (storeitem.items[0].images.smallIcon) {
 				itemimage = await Jimp.read(storeitem.items[0].images.smallIcon);
+			} else {
+				itemimage = await Jimp.read('./src/data/images/QuestionMark.png');
 			}
 		}
-		if (storeitem.bundle) {
+		if (storeitem.bundle && storeitem.bundle.image) {
 			itemimage = await Jimp.read(storeitem.bundle.image);
 		}
 		var hasseries = storeitem.items[0].series ? true : false;

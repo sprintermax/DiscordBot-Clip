@@ -80,6 +80,8 @@ exports.run = async (client, message, args, database) => {
 			itemimage = await Jimp.read(itemdata.images.icon);
 		} else if (itemdata.images.smallIcon) {
 			itemimage = await Jimp.read(itemdata.images.smallIcon);
+		} else {
+			itemimage = await Jimp.read('./src/data/images/QuestionMark.png');
 		}
 		var background = await Jimp.read('./src/data/images/rarities/Common.png');
 		if (itemdata.series && itemdata.series.backendValue == "MarvelSeries") {
