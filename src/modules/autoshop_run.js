@@ -150,14 +150,14 @@ module.exports = async (client, shop) => {
 				itemimg.blit(vbucks, (128 - (vbuckswidth/2)), 220);
 				return itemimg;
 			}).then(itemimg => {
-				itemimg.write(`./src/temp/store/items/${storeitem.bundle ? "Bundle" : "NotBundle"}_${storeitem.items[0].series ? storeitem.items[0].series.backendValue : "ZSeries"}_${(storeitem.items[0].rarity.backendValue.split("EFortRarity::")[1] == "Legendary") ? "ALegendary" : (storeitem.items[0].rarity.backendValue.split("EFortRarity::")[1] == "Common") ? "ZCommon" : storeitem.items[0].rarity.backendValue.split("EFortRarity::")[1]}_${storeitem.items[0].id}_${storeitem.offerId.split(":/")[1]}.png`);
+				itemimg.write(`./src/temp/autoshop/items/${storeitem.bundle ? "Bundle" : "NotBundle"}_${storeitem.items[0].series ? storeitem.items[0].series.backendValue : "ZSeries"}_${(storeitem.items[0].rarity.backendValue.split("EFortRarity::")[1] == "Legendary") ? "ALegendary" : (storeitem.items[0].rarity.backendValue.split("EFortRarity::")[1] == "Common") ? "ZCommon" : storeitem.items[0].rarity.backendValue.split("EFortRarity::")[1]}_${storeitem.items[0].id}_${storeitem.offerId.split(":/")[1]}.png`);
 				finishedtasks += 1;
 				if (finishedtasks == (storelength - skippeditems)) {
 					var checkedfiles = 0;
 					var rowdata = [];
 					var rolls = 1;
 					setTimeout(function() {
-						fs.readdir("./src/temp/store/items/", (err, files) => {
+						fs.readdir("./src/temp/autoshop/items/", (err, files) => {
 							if (err) return;
 							if ((((storelength - skippeditems) == 6) || ((storelength - skippeditems) == 12) || ((storelength - skippeditems) == 18) || ((storelength - skippeditems) == 21)) || (((storelength - skippeditems) >= 24) && ((storelength - skippeditems) % 8 == 0))) {
 								lastitem = 1;
@@ -172,9 +172,9 @@ module.exports = async (client, shop) => {
 								var collums = 6;
 							}
 							files.forEach(file => {
-								store.push(`./src/temp/store/items/${file}`);
+								store.push(`./src/temp/autoshop/items/${file}`);
 								if (!storedata["roll"+rolls]) storedata["roll"+rolls] = [];
-								storedata["roll"+rolls] += `|||./src/temp/store/items/${file}`;
+								storedata["roll"+rolls] += `|||./src/temp/autoshop/items/${file}`;
 								rowdata["roll"+rolls] = storedata["roll"+rolls].slice(3).split("|||");
 								checkedfiles += 1;
 								if (checkedfiles >= collums) {
@@ -192,12 +192,15 @@ module.exports = async (client, shop) => {
 								mergey += 1;
 							};
 							setTimeout(function() {
-								fs.readdir("./src/temp/store/final/", (err, files) => {
+								fs.readdir("./src/temp/autoshop/final/", (err, files) => {
 									if (err) return console.log(err);
 									var filedata = [];
 									/*if (files.length == mergey) {*/
 										files.forEach(file => {
-											filedata.push(`./src/temp/store/final/${file}`);
+											filedata.push(`./src/temp/autoshop/final/${file}`);
+										});
+										filedata.sort((b, a) => {
+											return b.split("./src/temp/itemshop/final/final")[1].split(".png")[0] - a.split("./src/temp/itemshop/final/final")[1].split(".png")[0];
 										});
 										Merger2(filedata);
 									/*}*/
@@ -212,7 +215,7 @@ module.exports = async (client, shop) => {
 	async function Merger1(data, mergey) {
 		await mergeImg(data, {offset: 15, color: 0x0})
 		.then((img) => {
-			img.write(`./src/temp/store/final/final${mergey}.png`);
+			img.write(`./src/temp/autoshop/final/final${mergey}.png`);
 		});
 	}
 
@@ -233,9 +236,9 @@ module.exports = async (client, shop) => {
 						});
 						return background;
 					}).then(finalimage => {
-						finalimage.write(`./src/temp/store/finalimage.png`);
+						finalimage.write(`./src/temp/autoshop/finalimage.png`);
 						setTimeout(function() {
-							client.channels.get("671152891360313385").send(new discord.Attachment("./src/temp/store/finalimage.png")).then(msg => {
+							client.channels.get("671152891360313385").send(new discord.Attachment("./src/temp/autoshop/finalimage.png")).then(msg => {
                                 msg.react("559669236058816532").then(() => {
                                     msg.react("559669236046495746")/*.then(() => {
 										// Start Temp publish
@@ -267,15 +270,15 @@ module.exports = async (client, shop) => {
 }
 
 async function CleanUpFiles() {
-	fs.access("./src/temp/store/", function(error) {
+	fs.access("./src/temp/autoshop/", function(error) {
 		if (error) {
-			fs.mkdir('./src/temp/store/', { recursive: true }, (err) => { if (err) throw err; });
+			fs.mkdir('./src/temp/autoshop/', { recursive: true }, (err) => { if (err) throw err; });
 		} else {
-			fs.readdir("./src/temp/store/", (err, files) => {
+			fs.readdir("./src/temp/autoshop/", (err, files) => {
 				if (err) return;
 				files.forEach(file => {
 					if (file == "finalimage.png"){
-						fs.unlink(`./src/temp/store/finalimage.png`, function (err) {
+						fs.unlink(`./src/temp/autoshop/finalimage.png`, function (err) {
 							if (err) throw err;
 						});
 					}
@@ -283,28 +286,28 @@ async function CleanUpFiles() {
 			});
 		}
 	});
-	fs.access("./src/temp/store/items/", function(error) {
+	fs.access("./src/temp/autoshop/items/", function(error) {
 		if (error) {
-			fs.mkdir('./src/temp/store/items/', { recursive: true }, (err) => { if (err) throw err; });
+			fs.mkdir('./src/temp/autoshop/items/', { recursive: true }, (err) => { if (err) throw err; });
 		} else {
-			fs.readdir("./src/temp/store/items/", (err, files) => {
+			fs.readdir("./src/temp/autoshop/items/", (err, files) => {
 				if (err) return;
 				files.forEach(file => {
-					fs.unlink(`./src/temp/store/items/${file}`, function (err) {
+					fs.unlink(`./src/temp/autoshop/items/${file}`, function (err) {
 						if (err) throw err;
 					});
 				});
 			});
 		}
 	});
-	fs.access("./src/temp/store/final/", function(error) {
+	fs.access("./src/temp/autoshop/final/", function(error) {
 		if (error) {
-			fs.mkdir('./src/temp/store/final/', { recursive: true }, (err) => { if (err) throw err; });
+			fs.mkdir('./src/temp/autoshop/final/', { recursive: true }, (err) => { if (err) throw err; });
 		} else {
-			fs.readdir("./src/temp/store/final/", (err, files) => {
+			fs.readdir("./src/temp/autoshop/final/", (err, files) => {
 				if (err) return;
 				files.forEach(file => {
-					fs.unlink(`./src/temp/store/final/${file}`, function (err) {
+					fs.unlink(`./src/temp/autoshop/final/${file}`, function (err) {
 						if (err) throw err;
 					});
 				});
