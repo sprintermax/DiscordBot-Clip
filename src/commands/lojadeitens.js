@@ -139,7 +139,7 @@ exports.run = async (client, message, args, database) => {
 			itemimg.blit(itemimage.resize(256, 256), 0, 0);
 			Jimp.loadFont("./src/data/fonts/burbark/burbark_20.fnt").then(font20 => {
 				Jimp.loadFont("./src/data/fonts/burbark/burbark_16.fnt").then(font16 => {
-					const textheight = Jimp.measureTextHeight(font20, (storeitem.bundle ? storeitem.bundle.name : storeitem.items[0].name).toUpperCase(), 240);
+					const textheight = Jimp.measureTextHeight(font20, (storeitem.bundle ? storeitem.bundle.name : storeitem.items[0].name).toUpperCase(), 245);
 					const vbuckswidth = 26 + 5 + Jimp.measureText(font20, `${storeitem.finalPrice}`);
 					var textpos;
 					if (textheight <= 22) {

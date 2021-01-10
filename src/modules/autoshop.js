@@ -8,9 +8,7 @@ module.exports = async (client) => {
 function checkstore(client) {
 	client.clipdb.find({"DBNameID":"ClipDB"}).toArray((err, items) => {
 		autoshop = items[0].autoshop;
-		if (autoshop.enabled == "true") {
-			CheckHash(client, autoshop);
-		}
+		CheckHash(client, autoshop);
 	});
 	setTimeout(function() {
 		checkstore(client)
@@ -25,11 +23,13 @@ async function CheckHash(client, autoshop) {
 		json: true,
 	});
 	if (shop.data.hash != shophash) {
-		autoshopworker(client, shop);
 		status = autoshop.enabled;
 		shophash = shop.data.hash;
 		client.clipdb.updateOne({"DBNameID":"ClipDB"}, {'$set': { autoshop: { enabled: status, lasthash: shophash } } }, (err, item) => {
 			if (err) console.error(err)
 		});
+		if (autoshop.enabled == "true") {
+			autoshopworker(client, shop);
+		}
 	}
 }

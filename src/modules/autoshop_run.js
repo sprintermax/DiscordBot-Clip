@@ -118,7 +118,7 @@ module.exports = async (client, shop) => {
 		itemimg.blit(itemimage.resize(256, 256), 0, 0);
 		Jimp.loadFont("./src/data/fonts/burbark/burbark_20.fnt").then(font20 => {
 			Jimp.loadFont("./src/data/fonts/burbark/burbark_16.fnt").then(font16 => {
-				const textheight = Jimp.measureTextHeight(font20, (storeitem.bundle ? storeitem.bundle.name : storeitem.items[0].name).toUpperCase(), 240);
+				const textheight = Jimp.measureTextHeight(font20, (storeitem.bundle ? storeitem.bundle.name : storeitem.items[0].name).toUpperCase(), 245);
 				const vbuckswidth = 26 + 5 + Jimp.measureText(font20, `${storeitem.finalPrice}`);
 				var textpos;
 				if (textheight <= 22) {
@@ -200,7 +200,7 @@ module.exports = async (client, shop) => {
 											filedata.push(`./src/temp/autoshop/final/${file}`);
 										});
 										filedata.sort((b, a) => {
-											return b.split("./src/temp/itemshop/final/final")[1].split(".png")[0] - a.split("./src/temp/itemshop/final/final")[1].split(".png")[0];
+											return b.split("./src/temp/autoshop/final/final")[1].split(".png")[0] - a.split("./src/temp/autoshop/final/final")[1].split(".png")[0];
 										});
 										Merger2(filedata);
 									/*}*/

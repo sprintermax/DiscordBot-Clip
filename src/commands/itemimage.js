@@ -109,7 +109,7 @@ exports.run = async (client, message, args, database) => {
 		}
 		background.blit(itemimage.resize(256, 256), 0, 0);
 		Jimp.loadFont("./src/data/fonts/burbark/burbark_20.fnt").then(font => {
-			const textheight = Jimp.measureTextHeight(font, itemdata.name.toUpperCase(), 240);
+			const textheight = Jimp.measureTextHeight(font, itemdata.name.toUpperCase(), 245);
 			background.blit(overlay, 0, 0);
 			var textpos;
 			if (textheight <= 22) {
