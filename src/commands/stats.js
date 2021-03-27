@@ -3,6 +3,7 @@ const discord = require('discord.js');
 
 exports.run = async (client, message, args, database) => {
 	message.delete();
+    if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete(10000));
 	const colors = client.dbdata.colors;
 
 	/*if (args.length < 3) return message.channel.send(`🚫 ${message.author} Comando inválido, use: \`${client.userconfig.botsettings.prefix}stats <all|tem|touch|ctrl> <global|solo|duo|squad> <epic username>\`\n("tem": Teclado e Mouse / "ctrl": Controle)`).then(msg => {

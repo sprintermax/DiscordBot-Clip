@@ -1,11 +1,11 @@
 {
 	"botsettings": {
-		"token": "Njk1NzA2NzA3MzUxMDQ0MTQ2.XoeFgg.7_RLiF2Avti1wwpw0Fbbb0h3-cs",
+		"token": "ODI1MjM3ODYyNTEyNzIxOTIy.YF7Apg.-q0U3YXO8bTBkpfT_9-41KS2oBs",
 		"database": "mongodb+srv://DiscordClip:Database@clipprimarycluster-tcemn.gcp.mongodb.net",
 		"prefix": "!!"
 	},
 	"whitelistids": [
-		"647862516545749043",
+		"117651568341286912",
 		"307331927772364801"
 	],
 	"ftnconfig": {

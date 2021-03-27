@@ -2,6 +2,9 @@ const discord = require('discord.js');
 
 module.exports.run = async (client, message, args, database) => {
 	message.delete();
+	/////////
+	if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete(10000));
+	/////////
 	var peixotos = [];
 	if (args[0] == "-list" && (message.member.hasPermission("MANAGE_MESSAGES") || client.whitelisted)) {
 		database.find({"DBNameID":"ClipDB"}).toArray((err, items) => {
