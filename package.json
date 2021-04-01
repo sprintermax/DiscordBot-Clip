@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "discord.js": "^11.5.1",
-    "enmap": "^5.2.4",
+    "discord.js": "^11.6.4",
+    "enmap": "^5.8.4",
     "fortnite": "^4.3.2",
     "fortnite-api-com": "^1.0.4",
     "fortnite-basic-api": "^1.6.1",
