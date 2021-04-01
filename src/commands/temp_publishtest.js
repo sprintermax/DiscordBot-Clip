@@ -3,14 +3,14 @@ const request = require('request');
 module.exports.run = async (client, message, args, database) => {
 	if((message.member.hasPermission("MANAGE_MESSAGES")) || (client.whitelisted)) {
 		if (args.length < 1) {
-		  message.channel.send(`${message.author}\nVocê precisa especificar a Mensagem que eu devo editar e o novo conteúdo da mensagem!`).then(msg => msg.delete(10000));
+		  message.channel.send(`${message.author}\nVocê precisa especificar a Mensagem que eu devo editar e o novo conteúdo da mensagem!`).then(msg => msg.delete({ timeout: 10000 }));
 		  return;
 		} else {
 		  if (args.length >= 1) {
 			if (args[0].startsWith('<#') && args[0].endsWith('>')) {
 			  channel = message.mentions.channels.first();
 			} else {
-			  channel = client.channels.get(args[0]);
+			  channel = client.channels.cache.get(args[0]);
 			}
 		  }
 		  if (!channel) {
@@ -35,12 +35,12 @@ module.exports.run = async (client, message, args, database) => {
           				console.log(body)
 					});
 				}
-			  }).catch(err => message.channel.send(`${message.author}\n"${args[0]}" é inválido. Você precisa especificar o ID de alguma mensagem ou algum Chat`).then(msg => msg.delete(10000)));
+			  }).catch(err => message.channel.send(`${message.author}\n"${args[0]}" é inválido. Você precisa especificar o ID de alguma mensagem ou algum Chat`).then(msg => msg.delete({ timeout: 10000 })));
 			  return;
 		  } else {
 			if (channel.permissionsFor(message.author).has('SEND_MESSAGES') || (client.whitelisted)) {
 			  if (args.length < 2) {
-				message.channel.send(`${message.author}\nVocê precisa especificar o novo conteúdo da mensagem para eu poder editar!`).then(msg => msg.delete(10000));
+				message.channel.send(`${message.author}\nVocê precisa especificar o novo conteúdo da mensagem para eu poder editar!`).then(msg => msg.delete({ timeout: 10000 }));
 				return;
 			  } else {
 				mensagem = message.content.slice(client.userconfig.botsettings.prefix.length + args[0].length + args[1].length + 10).trim();
@@ -68,7 +68,7 @@ module.exports.run = async (client, message, args, database) => {
 				return;
 			  }
 			} else {
-			  message.channel.send(`${message.author}\nVocê não tem permissão para mandar mensagens no Chat mencionado!`).then(msg => msg.delete(10000));
+			  message.channel.send(`${message.author}\nVocê não tem permissão para mandar mensagens no Chat mencionado!`).then(msg => msg.delete({ timeout: 10000 }));
 			  return;
 			}
 		  }

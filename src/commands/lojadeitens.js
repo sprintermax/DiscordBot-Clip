@@ -40,7 +40,7 @@ const requestcfg = {
 
 exports.run = async (client, message, args, database) => {
 	message.delete();
-	if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete(10000));
+	if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));
 	var shopitems;
 	var itemimages = [];
 	var channel;
@@ -48,7 +48,7 @@ exports.run = async (client, message, args, database) => {
 		if (args[0].startsWith('<#') && args[0].endsWith('>')) {
 			channel = message.mentions.channels.first();
 		} else {
-			channel = client.channels.get(args[0]);
+			channel = client.channels.cache.get(args[0]);
 		}
 	}
 	message.channel.send(`<a:cliploading:680776857854935092> Estou verificando a loja, aguarde um momento...`).then(msg => {
@@ -70,7 +70,7 @@ exports.run = async (client, message, args, database) => {
 		const shopitemcount = shop.data.featured.entries.length + shop.data.daily.entries.length;
 		const currentdate = shop.data.date.replace("T","-").split(`-`);
 		//console.log(`[INFO] Loja verificada com sucesso, ${shopitemcount} itens encontrados. Data: ${currentdate[2]}/${currentdate[[1]]}/${currentdate[0]} Hash: "${shop.data.hash}"`);
-		//client.channels.get("745411460758241331").send(`**__Loja de Itens Detectada:__**\n**-Itens encontrados:** \`${shopitemcount}\`\n**-Data:** \`${currentdate[2]}/${currentdate[[1]]}/${currentdate[0]}\`\n**-Hash:** \`${shop.data.hash}\``, new discord.Attachment(Buffer.from(JSON.stringify(shop), 'utf-8'), `shopdata.json`));
+		//client.channels.cache.get("745411460758241331").send(`**__Loja de Itens Detectada:__**\n**-Itens encontrados:** \`${shopitemcount}\`\n**-Data:** \`${currentdate[2]}/${currentdate[[1]]}/${currentdate[0]}\`\n**-Hash:** \`${shop.data.hash}\``, new discord.MessageAttachment(Buffer.from(JSON.stringify(shop), 'utf-8'), `shopdata.json`));
 		Main(shop.data);
 	});
 	async function Main(shopdata) {
@@ -235,7 +235,7 @@ exports.run = async (client, message, args, database) => {
 													//console.log("[INFO] Imagem da loja criada");
 													finalimage.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
 														if (!channel) {
-															message.channel.send(`🟢 ${message.author} Imagem da loja criada:`, new discord.Attachment(buffer, `loja_${currentdate[2]}-${currentdate[[1]]}-${currentdate[0]}.png`)).then(msg => {
+															message.channel.send(`🟢 ${message.author} Imagem da loja criada:`, new discord.MessageAttachment(buffer, `loja_${currentdate[2]}-${currentdate[[1]]}-${currentdate[0]}.png`)).then(msg => {
 																message.tempmsg.delete();
 																msg.react("559669236058816532").then(() => {
 																	msg.react("559669236046495746");
@@ -243,14 +243,14 @@ exports.run = async (client, message, args, database) => {
 															});
 														} else {
 															if((channel.permissionsFor(message.author).has('SEND_MESSAGES')) || (client.whitelisted)) {
-																message.client.channels.get(channel.id).send(new discord.Attachment(buffer, `loja_${currentdate[2]}-${currentdate[[1]]}-${currentdate[0]}.png`)).then(msg => {
+																message.client.channels.cache.get(channel.id).send(new discord.MessageAttachment(buffer, `loja_${currentdate[2]}-${currentdate[[1]]}-${currentdate[0]}.png`)).then(msg => {
 																	message.tempmsg.edit(`🟢 ${message.author} Enviei! Confira se está tudo certo com a mensagem no Chat especificado: https://discordapp.com/channels/${msg.guild.id}/${msg.channel.id}/${msg.id}`);
 																	msg.react("559669236058816532").then(() => {
 																		msg.react("559669236046495746");
 																	});
 																});
 															} else {
-															  message.channel.send(`${message.author} Você não tem permissão para mandar mensagens no Chat mencionado!`).then(msg => msg.delete(10000));
+															  message.channel.send(`${message.author} Você não tem permissão para mandar mensagens no Chat mencionado!`).then(msg => msg.delete({ timeout: 10000 }));
 															}
 														}
 													});

@@ -7,8 +7,8 @@ module.exports = async (client, member) => {
 	});
 	const colors = client.dbdata.colors;
 	const chatids = client.dbdata.chatids;
-	const newmembers = member.guild.channels.get(chatids.staff.newmembers);
-	var embed = new Discord.RichEmbed()
+	const newmembers = member.guild.channels.cache.get(chatids.staff.newmembers);
+	var embed = new Discord.MessageEmbed()
 		.setTitle(`${member.guild.name}`)
 		.setDescription(`Aqui está algumas informações e dicas para começar a usar o servidor, lembre-se de ler o chat [#Regras](https://discordapp.com/channels/499203081209118720/499929488679763968) para evitar ser punido e saber o que é permitido ou não.`)
 		.addField(`­`, `**Plataformas Sociais e Links Úteis:**\nO chat [#Bem-Vindo](https://discordapp.com/channels/499203081209118720/499233047938334720) contém diversos links informativos e para diversas outras plataformas sociais oficiais. Caso queira compartilhar o servidor com seus amigos utilize o link \"[https://discord.gg/fortnitebr-pt](https://discord.gg/fortnitebr-pt)\"`)

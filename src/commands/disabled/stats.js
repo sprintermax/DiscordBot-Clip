@@ -3,11 +3,11 @@ const discord = require('discord.js');
 
 exports.run = async (client, message, args, database) => {
 	message.delete();
-    if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete(10000));
+    if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));
 	const colors = client.dbdata.colors;
 
 	/*if (args.length < 3) return message.channel.send(`🚫 ${message.author} Comando inválido, use: \`${client.userconfig.botsettings.prefix}stats <all|tem|touch|ctrl> <global|solo|duo|squad> <epic username>\`\n("tem": Teclado e Mouse / "ctrl": Controle)`).then(msg => {
-		msg.delete(10000);
+		msg.delete({ timeout: 10000 });
 	});
 
 	let [platform, gamemode] = args;
@@ -22,7 +22,7 @@ exports.run = async (client, message, args, database) => {
 		} else if (platform == "ctrl") {
 			var plataforma = `gamepad`;
 		} else return message.channel.send(`❗ ${message.author} Comando inválido, os periféricos devem ser: \`all\`, \`tem\`, \`touch\` ou \`ctrl\`.`).then(msg => {
-			msg.delete(10000);
+			msg.delete({ timeout: 10000 });
 		});
 	};
 
@@ -33,18 +33,18 @@ exports.run = async (client, message, args, database) => {
 		} else if (gamemode == "global") {
 			var gametype = `all`;
 		} else return message.channel.send(`❗ ${message.author} Comando inválido, os modos disponíveis são: \`global\`, \`solo\`, \`duo\` ou \`squad\`.`).then(msg => {
-			msg.delete(10000);
+			msg.delete({ timeout: 10000 });
 		});
 	};
 
 	if (!plataforma || !gametype || !user) return message.channel.send(`🚫 ${message.author} Comando inválido, use: \`${client.userconfig.botsettings.prefix}stats <all|tem|touch|ctrl> <global|solo|duo|squad> <epic username>\`\n("tem": Teclado e Mouse / "ctrl": Controle)`).then(msg => {
-		msg.delete(10000);
+		msg.delete({ timeout: 10000 });
 	});*/
 
 	///////////////
 
 	if (args.length < 2) return message.channel.send(`${message.author} Comando inválido, use: \`${client.userconfig.botsettings.prefix}stats <global|solo|duo|squad> <epic username>\``).then(msg => {
-		msg.delete(10000);
+		msg.delete({ timeout: 10000 });
 	});
 
 	let gamemode = args[0];
@@ -57,12 +57,12 @@ exports.run = async (client, message, args, database) => {
 		} else if (gamemode == "global") {
 			var gametype = `all`;
 		} else return message.channel.send(`${message.author} "${gamemode}" é inválido, os modos disponíveis são: \`global\`, \`solo\`, \`duo\` ou \`squad\`.`).then(msg => {
-			msg.delete(10000);
+			msg.delete({ timeout: 10000 });
 		});
 	};
 
 	if (!gametype || !user) return message.channel.send(`${message.author} Comando inválido, use: \`${client.userconfig.botsettings.prefix}stats <global|solo|duo|squad> <epic username>\``).then(msg => {
-		msg.delete(10000);
+		msg.delete({ timeout: 10000 });
 	});
 
 	///////////////
@@ -88,7 +88,7 @@ exports.run = async (client, message, args, database) => {
 				ftnclient.stats.getV2Stats(`${user}`)
 			]);
 			if (parallel[0].error) return ftnclient.dcmsg.edit(`🔹 Oops! Não encontrei nenhuma estatística para o jogador "**${user}**", lembre-se de utilizar seu __Apelido da Epic Games__!`).then(msg => {
-				msg.delete(10000);
+				msg.delete({ timeout: 10000 });
 			});
 
 			/*let username = parallel[0].user.displayName;
@@ -118,7 +118,7 @@ exports.run = async (client, message, args, database) => {
 			msg += "\nVitórias: " + wins;
 			msg += "\nK/D: " + kd;
 
-			var embed = new discord.RichEmbed()
+			var embed = new discord.MessageEmbed()
 				.setAuthor(username)
 				.setDescription(msg)
 				.setColor(colors.padrao)
@@ -139,7 +139,7 @@ exports.run = async (client, message, args, database) => {
 				controlmethod = " usando **Controle**";
 			};*/
 			ftnclient.dcmsg.edit(`🔹 ${message.author} Mostrando estatísticas **${gamemode.toUpperCase()}** de **${username}**${controlmethod}.`, embed).then(msg => {
-				msg.delete(30000);
+				msg.delete({ timeout: 30000 });
 			});
 		})().catch(err => {
 			console.log(err);

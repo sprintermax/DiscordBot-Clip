@@ -26,15 +26,15 @@ module.exports = (client, message) => {
 	client.whitelisted = (client.clipadmin || whitelist.includes(message.author.id));
 	if (message.member) {
 		staffmember = message.member.hasPermission("MANAGE_MESSAGES");
-		influencer = message.member.roles.some(role => role.id == "709582298114293772");
+		influencer = message.member.roles.cache.some(role => role.id == "709582298114293772");
 	}
 	if (badword && !message.author.bot && (message.content.indexOf(`${prefix}badword`) == -1)) {
-		let embed = new Discord.RichEmbed()
+		let embed = new Discord.MessageEmbed()
 			.setTitle('~ Uma palavra inapropriada foi encontrada!')
 		if(client.whitelisted || message.author.bot || staffmember || influencer) {
 			embed.setDescription(`*A mensagem não foi excluída pois o usuário é um moderador ou está na lista branca*`);
 		} else {
-			message.delete().then(() => message.channel.send(`<:bananaolho:612483041931165707> ${message.author} Por favor não use palavras de baixo calão nesse servidor.`)).then(msg => msg.delete(10000));
+			message.delete().then(() => message.channel.send(`<:bananaolho:612483041931165707> ${message.author} Por favor não use palavras de baixo calão nesse servidor.`)).then(msg => msg.delete({ timeout: 10000 }));
 		}
 		embed.setColor(colors.padrao)
 			.setThumbnail(message.author.displayAvatarURL)
@@ -42,7 +42,7 @@ module.exports = (client, message) => {
 			.addField('🚫 Contéudo inapropriado da mensagem:', badword)
 			.addField('💬 Onde ocorreu e quem enviou:', `Mensagem enviada por ${message.author} no chat ${message.channel}`)
 			.setFooter(message.guild.name);
-		const wordslog = message.guild.channels.get(chatids.staff.wordslog);
+		const wordslog = message.guild.channels.cache.get(chatids.staff.wordslog);
 		if(!wordslog) return;
 		wordslog.send(embed);
 	}
@@ -51,7 +51,7 @@ module.exports = (client, message) => {
 	const command = args.shift().toLowerCase();
 	const cmd = client.commands.get(command);
 	if (!cmd) return;
-	if (talkedRecently.has(message.author.id)) return message.channel.send(`🚫 ${message.author} Você só pode executar algum comando a cada um minuto!`).then(msg => msg.delete(5000));
+	if (talkedRecently.has(message.author.id)) return message.channel.send(`🚫 ${message.author} Você só pode executar algum comando a cada um minuto!`).then(msg => msg.delete({ timeout: 5000 }));
 	if (!client.whitelisted) {
 		talkedRecently.add(message.author.id);
 	}

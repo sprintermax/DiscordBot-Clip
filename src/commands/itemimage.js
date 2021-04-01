@@ -5,13 +5,13 @@ const fs = require("fs");
 
 exports.run = async (client, message, args, database) => {
 	message.delete();
-	if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete(10000));
+	if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));
 	if (args.length < 2 || ((args[0] != "-pt" && args[0] != "-en")&& args[0] != "-id")) return message.channel.send(`${message.author} Você precisa especificar em qual idioma e o que devo procurar!\n\`!!itemimage <-en|-pt> <nome>\` (Note que a pesquisa em português pode conter bugs)`).then(msg => {
-		msg.delete(10000);
+		msg.delete({ timeout: 10000 });
 	});
 	var cosmetic, searchLanguage;
 	if ((args[0] == "-id" && args.length < 2)) return message.channel.send(`${message.author} Você precisa especificar o que devo procurar!\n\`!!itemimage <-id> <id>\``).then(msg => {
-		msg.delete(10000);
+		msg.delete({ timeout: 10000 });
 	});
 	if (args[0] == "-id" && args.length >= 2) {
 		cosmetic = message.content.split(`${args[0]} `)[1];
@@ -59,7 +59,7 @@ exports.run = async (client, message, args, database) => {
 			console.log(err)
 			message.tempmsg.delete();
 			message.channel.send(`${message.author} Oops! Não encontrei nenhum cosmético para sua pesquisa "${cosmetic}"`).then(msg => {
-				msg.delete(10000)
+				msg.delete({ timeout: 10000 })
 			});
 		});
 	} else {
@@ -68,7 +68,7 @@ exports.run = async (client, message, args, database) => {
 		}).catch(err => {
 			message.tempmsg.delete();
 			message.channel.send(`${message.author} Oops! Não encontrei nenhum cosmético para sua pesquisa "${cosmetic}"`).then(msg => {
-				msg.delete(10000)
+				msg.delete({ timeout: 10000 })
 			});
 		});
 	}
@@ -126,7 +126,7 @@ exports.run = async (client, message, args, database) => {
 			background.write(`./src/temp/cosmetic/${itemdata.id}.png`);
 			setTimeout(function() {
 				message.tempmsg.delete();
-				message.channel.send(`🔹 ${message.author} Aqui Está:`,new discord.Attachment(`./src/temp/cosmetic/${itemdata.id}.png`)).then(() => {
+				message.channel.send(`🔹 ${message.author} Aqui Está:`,new discord.MessageAttachment(`./src/temp/cosmetic/${itemdata.id}.png`)).then(() => {
 					fs.readdir("./src/temp/cosmetic/", (err, files) => {
 						if (err) return;
 						files.forEach(file => {

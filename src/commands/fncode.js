@@ -2,7 +2,7 @@ const discord = require('discord.js');
 const https = require('https');
 
 module.exports.run = async (client, message, args, database) => {
-    if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete(10000));
+    if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));
     if (args.length < 1){
         message.channel.send(`${message.author} Você precisa especificar qual código deseja verificar!`);
     } else {
@@ -16,12 +16,12 @@ module.exports.run = async (client, message, args, database) => {
                             JSON.parse(data.toString());
                             result = JSON.parse(data.toString());
                             if (result.codes[0].status == "Invalid") {
-                                var embed = new discord.RichEmbed()
+                                var embed = new discord.MessageEmbed()
                                     .setAuthor("INFORMAÇÕES DO CÓDIGO:")
                                     .setDescription(`**Código:** \`${result.codes[0].code}\`\n**Status:** ${result.codes[0].status}`)
                                     .setColor("#25C059")
                             } else {
-                                var embed = new discord.RichEmbed()
+                                var embed = new discord.MessageEmbed()
                                     .setAuthor("INFORMAÇÕES DO CÓDIGO:")
                                     .setDescription(`**Código:** \`${result.codes[0].code}\`\n**ID Interno:** ${result.codes[0].entitlementName}\n**Título:** ${result.codes[0].title}\n**Descrição:** ${result.codes[0].description}\n**Status:** ${result.codes[0].status}`)
                                     .setColor("#25C059")

@@ -4,7 +4,7 @@ const fs = require("fs");
 
 exports.run = async (client, message, args, database) => {
 	message.delete();
-	if ((!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete(10000));
+	if ((!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));
 	const userconfig = client.userconfig;
 	const config = {
 		apikey: userconfig.ftnconfig.fortnite_api_com_apikey,
