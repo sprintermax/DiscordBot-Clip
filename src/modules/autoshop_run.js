@@ -189,7 +189,7 @@ module.exports = async (client, shopdata) => {
 												}).then(finalimage => {
 													finalimage.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
 														
-														client.channels.get("671152891360313385").send(new discord.MessageAttachment(buffer, `loja_${currentdate[2]}-${currentdate[[1]]}-${currentdate[0]}.png`)).then(msg => {
+														client.channels.cache.get("671152891360313385").send(new discord.MessageAttachment(buffer, `loja_${currentdate[2]}-${currentdate[[1]]}-${currentdate[0]}.png`)).then(msg => {
 															msg.react("559669236058816532").then(() => {
 																msg.react("559669236046495746")/*.then(() => {
 																	// Start Temp publish

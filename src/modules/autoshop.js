@@ -50,7 +50,7 @@ async function CheckHash(client, autoshop) {
 			if (autoshop.enabled == "true") {
 				autoshopworker(client, shop.data);
 				console.log(`[INFO] Loja Detectada, ${shopitemcount} itens encontrados. Data: ${currentdate[2]}/${currentdate[[1]]}/${currentdate[0]}. Hash: "${shop.data.hash}"`);
-				client.channels.get("745411460758241331").send(`**__Loja de Itens Detectada:__**\n**-Itens encontrados:** \`${shopitemcount}\`\n**-Data:** \`${currentdate[2]}/${currentdate[[1]]}/${currentdate[0]}\`\n**-Hash:** \`${shop.data.hash}\``, new discord.Attachment(Buffer.from(JSON.stringify(shop), 'utf-8'), `shopdata.json`));
+				client.channels.cache.get("745411460758241331").send(`**__Loja de Itens Detectada:__**\n**-Itens encontrados:** \`${shopitemcount}\`\n**-Data:** \`${currentdate[2]}/${currentdate[[1]]}/${currentdate[0]}\`\n**-Hash:** \`${shop.data.hash}\``, new discord.MessageAttachment(Buffer.from(JSON.stringify(shop), 'utf-8'), `shopdata.json`));
 			}
 		}
 	});
