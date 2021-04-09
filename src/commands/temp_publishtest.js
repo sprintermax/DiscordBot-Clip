@@ -19,7 +19,7 @@ module.exports.run = async (client, message, args, database) => {
 				if (msg) {
 					request.post(`https://discord.com/api/channels/${msg.channel.id}/messages/${msg.id}/crosspost`, {
             			headers: {
-                  			Authorization: `Bot ${client.userconfig.botsettings.token}`
+                  			Authorization: `Bot ${process.env.DISCORD_TOKEN}`
             			}
           			}, (error, res, body) => {
               			if (error) {
@@ -48,7 +48,7 @@ module.exports.run = async (client, message, args, database) => {
 				  if (msg) {
 					request.post(`https://discord.com/api/channels/${msg.channel.id}/messages/${msg.id}/crosspost`, {
             			headers: {
-                  			Authorization: `Bot ${client.userconfig.botsettings.token}`
+                  			Authorization: `Bot ${process.env.DISCORD_TOKEN}`
             			}
           			}, (error, res, body) => {
               			if (error) {

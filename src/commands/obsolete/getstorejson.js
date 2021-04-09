@@ -1,5 +1,5 @@
 const discord = require('discord.js');
-const FortniteAPI = require("fortnite-api-com");
+const FortniteAPI = require("fortnite-api-com"); // obsoleto
 const fs = require("fs");
 
 exports.run = async (client, message, args, database) => {

@@ -1,4 +1,4 @@
-const { Client } = require('fortnite-basic-api');
+const { Client } = require('fortnite-basic-api'); // obsoleto
 const discord = require('discord.js');
 
 exports.run = async (client, message, args, database) => {

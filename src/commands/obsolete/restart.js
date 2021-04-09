@@ -3,7 +3,7 @@ exports.run = async (client, message, args, database) => {
 	message.delete();
 	message.channel.send("<a:cliploading:680776857854935092> Estou sendo reiniciada, aguarde um momento...").then( m => {
 		client.destroy();
-		client.login(client.userconfig.botsettings.token);
+		client.login(process.env.DISCORD_TOKEN);
 		client.on('ready', () => {
 			m.edit (`🔹 Pronto! Reiniciei e estou pronta para trabalhar!`).then(msg => {
 				msg.delete({ timeout: 10000 });

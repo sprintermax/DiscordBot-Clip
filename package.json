@@ -1,31 +1,21 @@
 {
   "name": "clip",
   "version": "1.0.0",
+  "license": "ISC",
   "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "docker_build": "docker build -t sprintermax/discord-clip ."
+  },
   "dependencies": {
     "discord.js": "^12.5.2",
+    "dotenv": "^8.2.0",
     "enmap": "^5.8.4",
-    "fortnite": "^4.3.2",
     "fortnite-api-com": "^2.2.1",
-    "fortnite-basic-api": "^1.6.1",
-    "fs": "0.0.1-security",
+    "fs": "*",
     "https": "^1.0.0",
     "jimp": "^0.9.3",
-    "merge-img": "^2.1.3",
     "mongodb": "^3.6.5",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.5"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lilsnuky/clip.git"
-  },
-  "bugs": {
-    "url": "https://github.com/lilsnuky/clip/issues"
-  },
-  "homepage": "https://github.com/lilsnuky/clip#readme",
-  "description": ""
+    "request": "^2.88.2"
+  }
 }

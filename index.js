@@ -1,3 +1,4 @@
+require(`dotenv`).config();
 const Discord = require("discord.js");
 const Enmap = require("enmap");
 const fs = require("fs");
@@ -32,7 +33,7 @@ fs.readdir("./src/commands/", (err, files) => {
 	console.log('[INFO] Importação dos comandos finalizada!');
 });
 
-mongo.connect(userconfig.botsettings.database, {
+mongo.connect(process.env.MONGO_DATABASE, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 }, (err, mongodb) => {
@@ -41,6 +42,6 @@ mongo.connect(userconfig.botsettings.database, {
 	client.clipdb = db;
 	db.find({"DBNameID":"ClipDB"}).toArray((err, items) => {
 		client.dbdata = items[0];
-		client.login(userconfig.botsettings.token);
+		client.login(process.env.DISCORD_TOKEN);
 	});
 });
