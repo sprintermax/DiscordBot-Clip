@@ -1,7 +1,7 @@
 exports.run = async (client, message, args, database) => {
 	////////////
-	if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) message.delete();
-    if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));
+	if((!message.member.roles.cache.some(role => role.id == "499227407123742721")) && (!client.whitelisted)) message.delete();
+    if((!message.member.roles.cache.some(role => role.id == "499227407123742721")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));
     ////////////
 	if(args.length < 1) {
         message.channel.send(`${message.author} Por favor, forneça uma pergunta válida para eu poder te responder.`).then(msg => msg.delete({ timeout: 7500 }));

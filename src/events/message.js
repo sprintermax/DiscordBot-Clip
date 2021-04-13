@@ -25,7 +25,7 @@ module.exports = (client, message) => {
 	client.clipadmin = userconfig.whitelistids.includes(message.author.id);
 	client.whitelisted = (client.clipadmin || whitelist.includes(message.author.id));
 	if (message.member) {
-		staffmember = message.member.hasPermission("MANAGE_MESSAGES");
+		staffmember = message.member.roles.cache.some(role => role.id == "499227407123742721");
 		influencer = message.member.roles.cache.some(role => role.id == "709582298114293772");
 	}
 	if (badword && !message.author.bot && (message.content.indexOf(`${prefix}badword`) == -1)) {

@@ -2,7 +2,7 @@ const discord = require('discord.js');
 
 module.exports.run = async (client, message, args, database) => {
   const prefix = client.userconfig.botsettings.prefix;
-  if((message.member.hasPermission("MANAGE_MESSAGES")) || (client.whitelisted)) {
+  if((message.member.roles.cache.some(role => role.id == "499227407123742721")) || (client.whitelisted)) {
     if (args.length < 1 && message.attachments.size == 0) {
       message.channel.send(`${message.author} Você precisa específicar o que eu devo mandar!`).then(msg => msg.delete({ timeout: 10000 }));
     } else {

@@ -1,7 +1,7 @@
 const discord = require('discord.js');
 
 module.exports.run = async (client, message, args, database) => {
-  if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));  
+  if((!message.member.roles.cache.some(role => role.id == "499227407123742721")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));  
   const colors = client.dbdata.colors;
   if (args.length < 1 && message.attachments.size == 0) {
       message.channel.send(`${message.author}\nVocê precisa especificar o que eu devo mandar!`);

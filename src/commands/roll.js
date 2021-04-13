@@ -5,7 +5,7 @@ function freeze(time) {
   
 module.exports.run = async (client, message, args, database) => {
 	message.delete();
-    if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));
+    if((!message.member.roles.cache.some(role => role.id == "499227407123742721")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));
 	if (args.length < 1){
 		var choise = Math.floor(Math.random() * 6 + 1);
 		message.channel.send(`${message.author} rolei o dado e caiu: **${choise}**`).then(msg => msg.delete({ timeout: 30000 }));

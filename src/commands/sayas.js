@@ -1,7 +1,7 @@
 const discord = require('discord.js');
 
 module.exports.run = async (client, message, args, database) => {
-    if((message.member.hasPermission("MANAGE_MESSAGES")) || (client.whitelisted)) {
+    if((message.member.roles.cache.some(role => role.id == "499227407123742721")) || (client.whitelisted)) {
         var channel;
         var haveperm = true;
         if (args.length >= 2) {

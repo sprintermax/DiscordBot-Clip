@@ -40,7 +40,7 @@ const requestcfg = {
 
 exports.run = async (client, message, args, database) => {
 	message.delete();
-	if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));
+	if((!message.member.roles.cache.some(role => role.id == "499227407123742721")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));
 	var shopitems;
 	var itemimages = [];
 	var channel;

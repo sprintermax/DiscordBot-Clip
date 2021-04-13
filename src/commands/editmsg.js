@@ -1,5 +1,5 @@
 module.exports.run = async (client, message, args, database) => {
-	if((message.member.hasPermission("MANAGE_MESSAGES")) || (client.whitelisted)) {
+	if((message.member.roles.cache.some(role => role.id == "499227407123742721")) || (client.whitelisted)) {
 	  if (message.attachments.size > 0) {
 		message.channel.send(`${message.author}\nDesculpe, mas devido a limitações do Discord eu não posso editar ou colocar imagens em uma mensagem já enviada!`).then(msg => msg.delete({ timeout: 10000 }));
 		return;

@@ -3,15 +3,15 @@ const discord = require('discord.js');
 module.exports.run = async (client, message, args, database) => {
 	message.delete();
 	/////////
-	if((!message.member.hasPermission("MANAGE_MESSAGES")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));
+	if((!message.member.roles.cache.some(role => role.id == "499227407123742721")) && (!client.whitelisted)) return message.channel.send(`${message.author} Você não tem permissão para executar esse comando!`).then(msg => msg.delete({ timeout: 10000 }));
 	/////////
 	var peixotos = [];
-	if (args[0] == "-list" && (message.member.hasPermission("MANAGE_MESSAGES") || client.whitelisted)) {
+	if (args[0] == "-list" && (message.member.roles.cache.some(role => role.id == "499227407123742721") || client.whitelisted)) {
 		database.find({"DBNameID":"ClipDB"}).toArray((err, items) => {
 			peixotos = items[0].peixotoimages;
 			message.channel.send(`${message.author} Aqui está uma lista com todos os links com imagens do peixoto:\n\`${peixotos.join("\n")}\``).then(msg => msg.delete({ timeout: 30000 }));
 		});
-	} else if (args[0] == "-add" && (message.member.hasPermission("MANAGE_MESSAGES") || client.whitelisted)) {
+	} else if (args[0] == "-add" && (message.member.roles.cache.some(role => role.id == "499227407123742721") || client.whitelisted)) {
 		if (args.length < 2) {
 			message.channel.send(`${message.author} Você precisa mandar um link que contém uma imagem do peixoto para eu adicionar!`).then(msg => msg.delete({ timeout: 7500 }));
 		} else {
@@ -28,7 +28,7 @@ module.exports.run = async (client, message, args, database) => {
 				}
 			});
 		}
-	} else if (args[0] == "-rem" && (message.member.hasPermission("MANAGE_MESSAGES") || client.whitelisted)) {
+	} else if (args[0] == "-rem" && (message.member.roles.cache.some(role => role.id == "499227407123742721") || client.whitelisted)) {
 		if (args.length < 2) {
 			message.channel.send(`${message.author} Você precisa especificar o link da imagem que devo remover!`).then(msg => msg.delete({ timeout: 7500 }));
 		} else {

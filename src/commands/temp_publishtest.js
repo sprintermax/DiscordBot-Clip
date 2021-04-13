@@ -1,7 +1,7 @@
 const request = require('request');
 
 module.exports.run = async (client, message, args, database) => {
-	if((message.member.hasPermission("MANAGE_MESSAGES")) || (client.whitelisted)) {
+	if((message.member.roles.cache.some(role => role.id == "499227407123742721")) || (client.whitelisted)) {
 		if (args.length < 1) {
 		  message.channel.send(`${message.author}\nVocê precisa especificar a Mensagem que eu devo editar e o novo conteúdo da mensagem!`).then(msg => msg.delete({ timeout: 10000 }));
 		  return;
